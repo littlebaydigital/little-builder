@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-require "rubygems"
-require "thor"
-require "harp2hugo/cli"
-
-RepublicBuilder::CLI.start
