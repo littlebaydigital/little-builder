@@ -1,3 +1,3 @@
 # Republic Builder
 
-Continuously delivering the Republic revolution
+Continuously buliding and delivering the Republic, one Microservice at a time.
