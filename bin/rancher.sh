@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source `pwd`/bin/lib/_bootstrap.sh
 source `pwd`/bin/lib/_utils.sh
 source `pwd`/bin/lib/_rancher.sh
 

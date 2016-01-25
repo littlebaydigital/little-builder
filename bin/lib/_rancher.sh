@@ -30,10 +30,8 @@ function upgrade_service() {
         -H 'Accept: application/json' \
         -H 'Content-Type: application/json' \
         "http://rancher.republicwealth.com.au/v1/projects/${environment}/services/${service}/" | jq '.upgrade.inServiceStrategy'`
-    echo "inServiceStrategy is "$inServiceStrategy
-
     local updatedServiceStrategy=`echo ${inServiceStrategy} | jq '.launchConfig.imageUuid |= sub("docker:.*$"; "docker:'${image}'")'`
-    echo "updatedServiceStrategy "$updatedServiceStrategy
+    echo "updatedServiceStrategy "$updatedServiceStrategy"\n"
 
     curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
         -X POST \
