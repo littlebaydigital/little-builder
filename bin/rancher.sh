@@ -20,4 +20,6 @@ case $COMMAND in
         upgrade_service $ENVIRONMENT $SERVICE $IMAGE ;;
     "finish_upgrade" )
         finish_upgrade $ENVIRONMENT $SERVICE ;;
+    *)
+        die "unkown command: ["$COMMAND"]" ;;
 esac
