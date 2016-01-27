@@ -8,13 +8,14 @@ function restart_service() {
 
     ensureVar CATTLE_ACCESS_KEY
     ensureVar CATTLE_SECRET_KEY
+    ensureVar RANCHER_API_URL
 
     curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
         -X POST \
         -H 'Accept: application/json' \
         -H 'Content-Type: application/json' \
         -d '{"rollingRestartStrategy": {"batchSize": '${batchSize}', "intervalMillis": '${interval}'}}' \
-        "http://rancher.republicwealth.com.au/v1/projects/${environment}/services/${service}/?action=restart"
+        "${RANCHER_API_URL}/projects/${environment}/services/${service}/?action=restart"
 }
 
 function upgrade_service() {
@@ -24,12 +25,13 @@ function upgrade_service() {
 
     ensureVar CATTLE_ACCESS_KEY
     ensureVar CATTLE_SECRET_KEY
+    ensureVar RANCHER_API_URL
 
     local inServiceStrategy=`curl -u "${CATTLE_ACCESS_KEY}:${CATTLE_SECRET_KEY}" \
         -X GET \
         -H 'Accept: application/json' \
         -H 'Content-Type: application/json' \
-        "http://rancher.republicwealth.com.au/v1/projects/${environment}/services/${service}/" | jq '.upgrade.inServiceStrategy'`
+        "${RANCHER_API_URL}/projects/${environment}/services/${service}/" | jq '.upgrade.inServiceStrategy'`
     local updatedServiceStrategy=`echo ${inServiceStrategy} | jq ".launchConfig.imageUuid=\"docker:${image}\""`
     echo "updatedServiceStrategy "${updatedServiceStrategy}
     echo "sending update request"
@@ -41,7 +43,7 @@ function upgrade_service() {
           \"inServiceStrategy\": ${updatedServiceStrategy}
           }
         }" \
-        "http://rancher.republicwealth.com.au/v1/projects/${environment}/services/${service}/?action=upgrade"
+        "${RANCHER_API_URL}/v1/projects/${environment}/services/${service}/?action=upgrade"
 }
 
 function finish_upgrade() {
@@ -54,7 +56,7 @@ function finish_upgrade() {
           -X GET \
           -H 'Accept: application/json' \
           -H 'Content-Type: application/json' \
-          "http://rancher.republicwealth.com.au/v1/projects/${environment}/services/${service}/" | jq '.state'`
+          "${RANCHER_API_URL}/v1/projects/${environment}/services/${service}/" | jq '.state'`
 
       case $serviceState in
           "\"upgraded\"" )
@@ -64,7 +66,7 @@ function finish_upgrade() {
                 -H 'Accept: application/json' \
                 -H 'Content-Type: application/json' \
                 -d '{}' \
-                "http://rancher.republicwealth.com.au/v1/projects/${environment}/services/${service}/?action=finishupgrade"
+                "${RANCHER_API_URL}/projects/${environment}/services/${service}/?action=finishupgrade"
               break ;;
           "\"upgrading\"" )
               echo -n "."
