@@ -43,7 +43,7 @@ function upgrade_service() {
           \"inServiceStrategy\": ${updatedServiceStrategy}
           }
         }" \
-        "${RANCHER_API_URL}/v1/projects/${environment}/services/${service}/?action=upgrade"
+        "${RANCHER_API_URL}/projects/${environment}/services/${service}/?action=upgrade"
 }
 
 function finish_upgrade() {
@@ -56,7 +56,7 @@ function finish_upgrade() {
           -X GET \
           -H 'Accept: application/json' \
           -H 'Content-Type: application/json' \
-          "${RANCHER_API_URL}/v1/projects/${environment}/services/${service}/" | jq '.state'`
+          "${RANCHER_API_URL}/projects/${environment}/services/${service}/" | jq '.state'`
 
       case $serviceState in
           "\"upgraded\"" )
