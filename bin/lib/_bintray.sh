@@ -21,8 +21,8 @@ function publish_latest() {
 
 function publish() {
     local repository=$1
-    local artifactVersion=$2
-    local filename=$3
+    local filename=$2
+    local artifactVersion=$3
 
     ensureVar BINTRAY_USER
     ensureVar BINTRAY_APIKEY
