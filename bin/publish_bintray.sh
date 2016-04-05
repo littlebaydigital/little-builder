@@ -9,9 +9,12 @@ VERSION=$3
 
 #tar cvf little-builder.tar.gz bin
 
-if $VERSION
+if [ -z "$VERSION" ]
 then
+    echo "publishing latest"
     publish_latest $REPOSITORY $FILE
 else
-    public $REPOSITORY $FILE $VERSION
+    echo "publishing version $VERSION"
+    publish $REPOSITORY $FILE $VERSION
+
 fi
