@@ -1,3 +1,7 @@
 # Little Builder
 
-Gme continuously delivering Quay.io and Rancher artefacts
+[![Download](https://api.bintray.com/packages/littlebaydigital/devops/little-builder/images/download.svg) ](https://bintray.com/littlebaydigital/devops/little-builder/_latestVersion)
+
+Helper scripts for continuously delivering Quay.io and Rancher artefacts.
+
+Currently working on converting these into Ruby Gems.
