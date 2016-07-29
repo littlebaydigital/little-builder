@@ -4,4 +4,4 @@
 
 Helper scripts for continuously delivering Quay.io and Rancher artefacts.
 
-Currently working on converting these into Ruby Gems.
+Currently working on converting these into GoLang binaries for better portablity and unit testing.
